@@ -53,6 +53,8 @@ export default function Home() {
                 });
                 setData(palette);
             });
+
+        setPreview(image);
         setStartingImage(demoNum);
         setDemoNum((prev) => prev + 1);
     };
