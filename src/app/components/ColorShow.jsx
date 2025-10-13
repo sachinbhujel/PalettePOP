@@ -89,10 +89,7 @@ function ColorShow({
                                                 : `${bgColor}`,
                                     }}
                                 ></div>
-                                <div
-                                    className="w-full flex flex-col items-center gap-2 absolute h-full pt-3"
-                                    onClick={(e) => test(e)}
-                                >
+                                <div className="w-full flex flex-col items-center gap-2 absolute h-full pt-3">
                                     <div className="cursor-pointer opacity-0 group-hover:opacity-100">
                                         {color === colorName ? (
                                             <svg
@@ -185,7 +182,7 @@ function ColorShow({
                                 backgroundColor: "#ffffffff",
                             }}
                         ></div>
-                        <div className="w-full flex flex-col items-center gap-2 absolute text-white top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+                        <div className="w-full flex flex-col items-center gap-2 absolute h-full pt-3">
                             <div className="cursor-pointer opacity-0 group-hover:opacity-100">
                                 {isColorCopy ? (
                                     <svg
@@ -248,7 +245,7 @@ function ColorShow({
                                 backgroundColor: "#ffffffff",
                             }}
                         ></div>
-                        <div className="w-full flex flex-col items-center gap-2 absolute text-white top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+                        <div className="w-full flex flex-col items-center gap-2 absolute h-full pt-3">
                             <div className="cursor-pointer opacity-0 group-hover:opacity-100">
                                 {isColorCopy ? (
                                     <svg
@@ -311,7 +308,7 @@ function ColorShow({
                                 backgroundColor: "#ffffffff",
                             }}
                         ></div>
-                        <div className="w-full flex flex-col items-center gap-2 absolute text-white top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+                        <div className="w-full flex flex-col items-center gap-2 absolute h-full pt-3">
                             <div className="cursor-pointer opacity-0 group-hover:opacity-100">
                                 {isColorCopy ? (
                                     <svg
@@ -374,7 +371,7 @@ function ColorShow({
                                 backgroundColor: "#ffffffff",
                             }}
                         ></div>
-                        <div className="w-full flex flex-col items-center gap-2 absolute text-white top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+                        <div className="w-full flex flex-col items-center gap-2 absolute h-full pt-3">
                             <div className="cursor-pointer opacity-0 group-hover:opacity-100">
                                 {isColorCopy ? (
                                     <svg
@@ -437,7 +434,7 @@ function ColorShow({
                                 backgroundColor: "#ffffffff",
                             }}
                         ></div>
-                        <div className="w-full flex flex-col items-center gap-2 absolute text-white top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+                        <div className="w-full flex flex-col items-center gap-2 absolute h-full pt-3">
                             <div className="cursor-pointer opacity-0 group-hover:opacity-100">
                                 {isColorCopy ? (
                                     <svg
@@ -500,7 +497,7 @@ function ColorShow({
                                 backgroundColor: "#ffffffff",
                             }}
                         ></div>
-                        <div className="w-full flex flex-col items-center gap-2 absolute text-white top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+                        <div className="w-full flex flex-col items-center gap-2 absolute h-full pt-3">
                             <div className="cursor-pointer opacity-0 group-hover:opacity-100">
                                 {isColorCopy ? (
                                     <svg
