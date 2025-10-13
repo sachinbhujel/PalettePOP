@@ -3,6 +3,7 @@ import { Vibrant } from "node-vibrant/browser";
 import Navbar from "./components/Navbar";
 import Image from "next/image";
 import { demoImage } from "@/data/data";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 import React, { useEffect, useState } from "react";
 import ColorShow from "./components/ColorShow";
@@ -164,6 +165,7 @@ export default function Home() {
                 setColorCode={setColorCode}
             />
             <Footer primary={colorData.primary} />
+            <SpeedInsights />
         </div>
     );
 }
