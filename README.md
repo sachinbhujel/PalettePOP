@@ -9,6 +9,7 @@ A simple and interactive web app that generates color palettes from any image yo
 -   🖼️ Upload any image (JPG, PNG, etc.)
 -   🎨 Instantly get a color palette based on your image
 -   📋 Copy color codes with one click
+-   🌈 The UI changes dynamically based on the generated colors
 -   💡 Responsive and easy-to-use interface
 
 ---
