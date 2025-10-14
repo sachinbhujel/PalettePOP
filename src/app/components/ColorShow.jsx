@@ -138,11 +138,29 @@ function ColorShow({
                                         )}
                                     </div>
                                     <p
-                                        className="text-sm test"
+                                        className={`${
+                                            colorCode === "rgb"
+                                                ? "sm:text-sm text-xs"
+                                                : colorCode === "hsl"
+                                                ? "sm:text-sm text-xs"
+                                                : "text-sm"
+                                        } test text-center`}
                                         style={{ color: value.bodyTextColor }}
                                     >
                                         {colorCode === "rgb"
-                                            ? `rgb(${bgColor})`
+                                            ? `rgb(${
+                                                  bgColor[0]
+                                                      .toString()
+                                                      .split(".")[0]
+                                              }, ${
+                                                  bgColor[1]
+                                                      .toString()
+                                                      .split(".")[0]
+                                              }, ${
+                                                  bgColor[2]
+                                                      .toString()
+                                                      .split(".")[0]
+                                              })`
                                             : colorCode === "hsl"
                                             ? `hsl(${
                                                   (bgColor[0] * 360)

@@ -16,7 +16,7 @@ A simple and interactive web app that generates color palettes from any image yo
 
 ## 📷 Screenshots
 
-![Sidewise AI home page](public/palettepop.png)
+![PalettePoP](public/palettepop.png)
 
 ---
 
