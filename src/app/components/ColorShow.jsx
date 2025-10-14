@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import ColorCopyMessage from "./ColorCopyMessage";
 import ChangeColorSelect from "./ChangeColorSelect";
+import ExportColors from "./ExportColors";
 
 function ColorShow({
     primary,
@@ -9,6 +10,8 @@ function ColorShow({
     setIsColorCopy,
     colorCode,
     setColorCode,
+    setExportDivShow,
+    setExportColorData,
 }) {
     const [color, setColor] = useState("");
 
@@ -26,7 +29,13 @@ function ColorShow({
 
     return (
         <div className="flex flex-col gap-1 mt-8">
-            <ChangeColorSelect setColorCode={setColorCode} primary={primary} />
+            <div className="flex items-center gap-2">
+                <ChangeColorSelect
+                    setColorCode={setColorCode}
+                    primary={primary}
+                />
+                <ExportColors setExportDivShow={setExportDivShow} />
+            </div>
             {data ? (
                 <div
                     className="sm:flex grid grid-cols-3"
@@ -38,6 +47,7 @@ function ColorShow({
                 >
                     {Object.entries(data).map(([colorName, value]) => {
                         const bgColor = value[colorCode];
+                        
 
                         return (
                             <div
