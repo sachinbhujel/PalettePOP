@@ -11,7 +11,6 @@ function ColorShow({
     colorCode,
     setColorCode,
     setExportDivShow,
-    setExportColorData,
 }) {
     const [color, setColor] = useState("");
 
@@ -47,7 +46,6 @@ function ColorShow({
                 >
                     {Object.entries(data).map(([colorName, value]) => {
                         const bgColor = value[colorCode];
-                        
 
                         return (
                             <div
@@ -99,7 +97,7 @@ function ColorShow({
                                                 : `${bgColor}`,
                                     }}
                                 ></div>
-                                <div className="w-full flex flex-col items-center gap-2 absolute h-full pt-3">
+                                <div className="w-full flex flex-col items-center gap-2 absolute h-full pt-4">
                                     <div className="cursor-pointer opacity-0 group-hover:opacity-100">
                                         {color === colorName ? (
                                             <svg

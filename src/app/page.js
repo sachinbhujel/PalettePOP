@@ -5,6 +5,7 @@ import Image from "next/image";
 import { demoImage } from "@/data/data";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 
+import * as htmlToImage from "html-to-image";
 import React, { useEffect, useState } from "react";
 import ColorShow from "./components/ColorShow";
 import Footer from "./components/Footer";
@@ -35,6 +36,9 @@ export default function Home() {
     const [colorCode, setColorCode] = useState("hex");
     const [exportDivShow, setExportDivShow] = useState(false);
     const [active, setActive] = useState("css");
+    const [activeCode, setActiveCode] = useState("");
+    const [hexShow, setHexShow] = useState(false);
+    const [exportCopy, setExportCopy] = useState(false);
 
     useEffect(() => {
         const randomNumber = Math.floor(Math.random() * demoImage.length);
@@ -105,6 +109,8 @@ export default function Home() {
     };
 
     const handleExportData = (exportCode) => {
+        setHexShow(true);
+        setActiveCode(exportCode);
         if (exportCode === "hex") {
             setExportColorData({
                 vibrant: data.Vibrant.hex,
@@ -188,6 +194,60 @@ export default function Home() {
             });
         }
     };
+
+    const handleCopyData = (exportData) => {
+        setExportCopy(true);
+
+        setTimeout(() => {
+            setExportCopy(false);
+        }, 600);
+
+        if (active === "css") {
+            const formattedData = Object.entries(exportData)
+                .map(([key, value]) => `--${key}: ${value};`)
+                .join("\n");
+
+            navigator.clipboard
+                .writeText(formattedData)
+                .then(() => {
+                    console.log("JSON data copied to clipboard successfully!");
+                })
+                .catch((err) => {
+                    console.error(
+                        "Failed to copy JSON data to clipboard:",
+                        err
+                    );
+                });
+        } else if (active === "tailwind") {
+            const formattedData = Object.entries(exportData)
+                .map(([key, value]) => `--${key}: ${value};`)
+                .join("\n");
+
+            navigator.clipboard
+                .writeText(`colors: { \n ${formattedData} \n}`)
+                .then(() => {
+                    console.log("JSON data copied to clipboard successfully!");
+                })
+                .catch((err) => {
+                    console.error(
+                        "Failed to copy JSON data to clipboard:",
+                        err
+                    );
+                });
+        }
+    };
+
+    const handleDownload = () => {
+        console.log("hi");
+        const node = document.getElementById("export-color-data");
+        htmlToImage.toPng(node).then((dataUrl) => {
+            var link = document.createElement("a");
+            link.download = "palette.png";
+            link.href = dataUrl;
+            link.click();
+        });
+    };
+
     return (
         <div
             className={`min-h-screen m-auto p-4 relative`}
@@ -270,7 +330,6 @@ export default function Home() {
                 </div>
             </div>
             <ColorShow
-                setExportColorData={setExportColorData}
                 setExportDivShow={setExportDivShow}
                 primary={colorData.primary}
                 data={data}
@@ -282,84 +341,445 @@ export default function Home() {
             <Footer primary={colorData.primary} />
             <SpeedInsights />
             {exportDivShow && (
-                <div className="rounded-md bg-white shadow-lg p-4 flex flex-col gap-2 absolute -translate-x-1/2 -translate-y-1/2 left-1/2 top-[50%] w-[90%]">
-                    <div className="flex items-center justify-between">
-                        <div className="flex items-center gap-4 text-lg font-semibold">
-                            <p
-                                className={`cursor-pointer border p-1 px-3 rounded-md ${
-                                    active === "css"
-                                        ? "bg-blue-500 text-white shadow-md scale-105"
-                                        : ""
-                                }`}
-                                onClick={() => setActive("css")}
-                            >
-                                CSS
-                            </p>
-                            <p
-                                className={`cursor-pointer border p-1 px-3 rounded-md ${
-                                    active === "tailwind"
-                                        ? "bg-blue-500 text-white shadow-md scale-105"
-                                        : ""
-                                }`}
-                                onClick={() => setActive("tailwind")}
-                            >
-                                Tailwind CSS
-                            </p>
-                        </div>
-                        <div
-                            className="border rounded-md p-1 cursor-pointer"
-                            onClick={() => setExportDivShow(false)}
-                        >
-                            <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                width="20"
-                                height="20"
-                                viewBox="0 0 24 24"
-                                fill="none"
-                                stroke="currentColor"
-                                strokeWidth="2"
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                className="lucide lucide-x-icon lucide-x"
-                            >
-                                <path d="M18 6 6 18" />
-                                <path d="m6 6 12 12" />
-                            </svg>
-                        </div>
-                    </div>
-                    <hr />
-                    <div className="flex items-center mt-2 gap-4">
-                        <p
-                            onClick={() => handleExportData("hex")}
-                            className="border px-4 py-0.5 rounded-lg cursor-pointer"
-                        >
-                            Hex
-                        </p>
-                        <p
-                            onClick={() => handleExportData("rgb")}
-                            className="border px-4 py-0.5 rounded-lg cursor-pointer"
-                        >
-                            Rgb
-                        </p>
-                        <p
-                            onClick={() => handleExportData("hsl")}
-                            className="border px-4 rounded-lg py-0.5 cursor-pointer"
-                        >
-                            Hsl
-                        </p>
-                    </div>
-                    <div className="flex flex-col border p-2 gap-2 mt-4 bg-gray-200">
-                        {Object.entries(exportColorData).map(([data, code]) => (
-                            <div
-                                key={data}
-                                className="flex text-lg items-center gap-2"
-                            >
-                                <h2 className="font-semibold">--{data}:</h2>
-                                <h2>{code}</h2>
+                <>
+                    {active === "css" && (
+                        <div className="rounded-md bg-white shadow-lg p-4 flex flex-col gap-2 absolute -translate-x-1/2 -translate-y-1/2 left-1/2 top-[50%] w-[90%]">
+                            <div className="flex items-center justify-between">
+                                <div className="flex items-center gap-4 text-lg font-semibold">
+                                    <p
+                                        className={`cursor-pointer border p-1 px-3 rounded-md ${
+                                            active === "css"
+                                                ? "bg-blue-500 text-white shadow-md scale-105"
+                                                : ""
+                                        }`}
+                                        onClick={() => setActive("css")}
+                                    >
+                                        CSS
+                                    </p>
+                                    <p
+                                        className={`cursor-pointer border p-1 px-3 rounded-md ${
+                                            active === "tailwind"
+                                                ? "bg-blue-500 text-white shadow-md scale-105"
+                                                : ""
+                                        }`}
+                                        onClick={() => setActive("tailwind")}
+                                    >
+                                        Tailwind CSS
+                                    </p>
+                                    <p
+                                        className={`cursor-pointer border p-1 px-3 rounded-md ${
+                                            active === "png"
+                                                ? "bg-blue-500 text-white"
+                                                : ""
+                                        }`}
+                                        onClick={() => setActive("png")}
+                                    >
+                                        PNG
+                                    </p>
+                                </div>
+                                <div
+                                    className="border rounded-md p-1 cursor-pointer"
+                                    onClick={() => setExportDivShow(false)}
+                                >
+                                    <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        width="20"
+                                        height="20"
+                                        viewBox="0 0 24 24"
+                                        fill="none"
+                                        stroke="currentColor"
+                                        strokeWidth="2"
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                        className="lucide lucide-x-icon lucide-x"
+                                    >
+                                        <path d="M18 6 6 18" />
+                                        <path d="m6 6 12 12" />
+                                    </svg>
+                                </div>
                             </div>
-                        ))}
-                    </div>
-                </div>
+                            <hr />
+                            <div className="flex items-center mt-2 gap-4">
+                                {hexShow ? (
+                                    <p
+                                        onClick={() => handleExportData("hex")}
+                                        className={` ${
+                                            activeCode === "hex"
+                                                ? "bg-black text-white"
+                                                : ""
+                                        }`}
+                                    >
+                                        Hex
+                                    </p>
+                                ) : (
+                                    <p
+                                        onClick={() => handleExportData("hex")}
+                                        className={`border px-4 py-0.5 rounded-lg cursor-pointer bg-black text-white`}
+                                    >
+                                        Hex
+                                    </p>
+                                )}
+                                <p
+                                    onClick={() => handleExportData("rgb")}
+                                    className={`border px-4 py-0.5 rounded-lg cursor-pointer ${
+                                        activeCode === "rgb"
+                                            ? "bg-black text-white"
+                                            : ""
+                                    }`}
+                                >
+                                    Rgb
+                                </p>
+                                <p
+                                    onClick={() => handleExportData("hsl")}
+                                    className={`border px-4 py-0.5 rounded-lg cursor-pointer ${
+                                        activeCode === "hsl"
+                                            ? "bg-black text-white"
+                                            : ""
+                                    }`}
+                                >
+                                    Hsl
+                                </p>
+                            </div>
+                            <div className="flex flex-col mt-4 gap-1">
+                                <div className="flex flex-col border p-2 gap-2 bg-gray-200 relative">
+                                    {Object.entries(exportColorData).map(
+                                        ([data, code]) => (
+                                            <div
+                                                key={data}
+                                                className="flex text-lg items-center gap-2"
+                                            >
+                                                <h2 className="font-semibold">
+                                                    --{data}:
+                                                </h2>
+                                                <h2>{code};</h2>
+                                            </div>
+                                        )
+                                    )}
+                                    <div className="w-full flex justify-end absolute top-2 right-2">
+                                        <div
+                                            className="w-max cursor-pointer"
+                                            onClick={() =>
+                                                handleCopyData(exportColorData)
+                                            }
+                                        >
+                                            {exportCopy ? (
+                                                <svg
+                                                    xmlns="http://www.w3.org/2000/svg"
+                                                    width="18"
+                                                    height="18"
+                                                    viewBox="0 0 24 24"
+                                                    fill="none"
+                                                    stroke="currentColor"
+                                                    strokeWidth="2"
+                                                    strokeLinecap="round"
+                                                    strokeLinejoin="round"
+                                                    className="lucide lucide-check-icon lucide-check"
+                                                >
+                                                    <path d="M20 6 9 17l-5-5" />
+                                                </svg>
+                                            ) : (
+                                                <svg
+                                                    xmlns="http://www.w3.org/2000/svg"
+                                                    width="18"
+                                                    height="18"
+                                                    viewBox="0 0 24 24"
+                                                    fill="none"
+                                                    stroke="currentColor"
+                                                    strokeWidth="2"
+                                                    strokeLinecap="round"
+                                                    strokeLinejoin="round"
+                                                    className="lucide lucide-copy-icon lucide-copy"
+                                                >
+                                                    <rect
+                                                        width="14"
+                                                        height="14"
+                                                        x="8"
+                                                        y="8"
+                                                        rx="2"
+                                                        ry="2"
+                                                    />
+                                                    <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2" />
+                                                </svg>
+                                            )}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    )}
+
+                    {active === "tailwind" && (
+                        <div className="rounded-md bg-white shadow-lg p-4 flex flex-col gap-2 absolute -translate-x-1/2 -translate-y-1/2 left-1/2 top-[50%] w-[90%]">
+                            <div className="flex items-center justify-between">
+                                <div className="flex items-center gap-4 text-lg font-semibold">
+                                    <p
+                                        className={`cursor-pointer border p-1 px-3 rounded-md ${
+                                            active === "css"
+                                                ? "bg-blue-500 text-white"
+                                                : ""
+                                        }`}
+                                        onClick={() => setActive("css")}
+                                    >
+                                        CSS
+                                    </p>
+                                    <p
+                                        className={`cursor-pointer border p-1 px-3 rounded-md ${
+                                            active === "tailwind"
+                                                ? "bg-blue-500 text-white"
+                                                : ""
+                                        }`}
+                                        onClick={() => setActive("tailwind")}
+                                    >
+                                        Tailwind CSS
+                                    </p>
+                                    <p
+                                        className={`cursor-pointer border p-1 px-3 rounded-md ${
+                                            active === "png"
+                                                ? "bg-blue-500 text-white"
+                                                : ""
+                                        }`}
+                                        onClick={() => setActive("png")}
+                                    >
+                                        PNG
+                                    </p>
+                                </div>
+                                <div
+                                    className="border rounded-md p-1 cursor-pointer"
+                                    onClick={() => setExportDivShow(false)}
+                                >
+                                    <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        width="20"
+                                        height="20"
+                                        viewBox="0 0 24 24"
+                                        fill="none"
+                                        stroke="currentColor"
+                                        strokeWidth="2"
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                        className="lucide lucide-x-icon lucide-x"
+                                    >
+                                        <path d="M18 6 6 18" />
+                                        <path d="m6 6 12 12" />
+                                    </svg>
+                                </div>
+                            </div>
+                            <hr />
+                            <div className="flex items-center mt-2 gap-4">
+                                {hexShow ? (
+                                    <p
+                                        onClick={() => handleExportData("hex")}
+                                        className={`border px-4 py-0.5 rounded-lg cursor-pointer ${
+                                            activeCode === "hex"
+                                                ? "bg-black text-white"
+                                                : ""
+                                        }`}
+                                    >
+                                        Hex
+                                    </p>
+                                ) : (
+                                    <p
+                                        onClick={() => handleExportData("hex")}
+                                        className={`border px-4 py-0.5 rounded-lg cursor-pointer bg-black text-white`}
+                                    >
+                                        Hex
+                                    </p>
+                                )}
+                                <p
+                                    onClick={() => handleExportData("rgb")}
+                                    className={`border px-4 py-0.5 rounded-lg cursor-pointer ${
+                                        activeCode === "rgb"
+                                            ? "bg-black text-white"
+                                            : ""
+                                    }`}
+                                >
+                                    Rgb
+                                </p>
+                                <p
+                                    onClick={() => handleExportData("hsl")}
+                                    className={`border px-4 py-0.5 rounded-lg cursor-pointer ${
+                                        activeCode === "hsl"
+                                            ? "bg-black text-white"
+                                            : ""
+                                    }`}
+                                >
+                                    Hsl
+                                </p>
+                            </div>
+                            <div className="flex flex-col mt-4 gap-1">
+                                <div className="flex flex-col border p-2 gap-2 bg-gray-200 relative">
+                                    <div className="text-lg font-semibold">
+                                        colors: {`{`}
+                                    </div>
+                                    {Object.entries(exportColorData).map(
+                                        ([data, code]) => (
+                                            <div
+                                                key={data}
+                                                className="flex text-lg items-center gap-2"
+                                            >
+                                                <h2 className="font-semibold">
+                                                    --{data}:
+                                                </h2>
+                                                <h2>{code};</h2>
+                                            </div>
+                                        )
+                                    )}
+                                    <div className="text-lg font-semibold">{`}`}</div>
+                                    <div className="w-full flex justify-end absolute top-2 right-2">
+                                        <div
+                                            className="w-max cursor-pointer"
+                                            onClick={() =>
+                                                handleCopyData(exportColorData)
+                                            }
+                                        >
+                                            {exportCopy ? (
+                                                <svg
+                                                    xmlns="http://www.w3.org/2000/svg"
+                                                    width="18"
+                                                    height="18"
+                                                    viewBox="0 0 24 24"
+                                                    fill="none"
+                                                    stroke="currentColor"
+                                                    strokeWidth="2"
+                                                    strokeLinecap="round"
+                                                    strokeLinejoin="round"
+                                                    className="lucide lucide-check-icon lucide-check"
+                                                >
+                                                    <path d="M20 6 9 17l-5-5" />
+                                                </svg>
+                                            ) : (
+                                                <svg
+                                                    xmlns="http://www.w3.org/2000/svg"
+                                                    width="18"
+                                                    height="18"
+                                                    viewBox="0 0 24 24"
+                                                    fill="none"
+                                                    stroke="currentColor"
+                                                    strokeWidth="2"
+                                                    strokeLinecap="round"
+                                                    strokeLinejoin="round"
+                                                    className="lucide lucide-copy-icon lucide-copy"
+                                                >
+                                                    <rect
+                                                        width="14"
+                                                        height="14"
+                                                        x="8"
+                                                        y="8"
+                                                        rx="2"
+                                                        ry="2"
+                                                    />
+                                                    <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2" />
+                                                </svg>
+                                            )}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    )}
+
+                    {active === "png" && (
+                        <div className="rounded-md bg-white shadow-lg p-4 flex flex-col gap-2 absolute -translate-x-1/2 -translate-y-1/2 left-1/2 top-[50%] w-[90%]">
+                            <div className="flex items-center justify-between">
+                                <div className="flex items-center gap-4 text-lg font-semibold">
+                                    <p
+                                        className={`cursor-pointer border p-1 px-3 rounded-md ${
+                                            active === "css"
+                                                ? "bg-blue-500 text-white shadow-md scale-105"
+                                                : ""
+                                        }`}
+                                        onClick={() => setActive("css")}
+                                    >
+                                        CSS
+                                    </p>
+                                    <p
+                                        className={`cursor-pointer border p-1 px-3 rounded-md ${
+                                            active === "tailwind"
+                                                ? "bg-blue-500 text-white shadow-md scale-105"
+                                                : ""
+                                        }`}
+                                        onClick={() => setActive("tailwind")}
+                                    >
+                                        Tailwind CSS
+                                    </p>
+                                    <p
+                                        className={`cursor-pointer border p-1 px-3 rounded-md ${
+                                            active === "png"
+                                                ? "bg-blue-500 text-white"
+                                                : ""
+                                        }`}
+                                        onClick={() => setActive("png")}
+                                    >
+                                        PNG
+                                    </p>
+                                </div>
+                                <div
+                                    className="border rounded-md p-1 cursor-pointer"
+                                    onClick={() => setExportDivShow(false)}
+                                >
+                                    <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        width="20"
+                                        height="20"
+                                        viewBox="0 0 24 24"
+                                        fill="none"
+                                        stroke="currentColor"
+                                        strokeWidth="2"
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                        className="lucide lucide-x-icon lucide-x"
+                                    >
+                                        <path d="M18 6 6 18" />
+                                        <path d="m6 6 12 12" />
+                                    </svg>
+                                </div>
+                            </div>
+                            <hr />
+                            <div
+                                className="flex flex-col mt-4 gap-1"
+                                id="export-color-data"
+                            >
+                                <div className="flex flex-wrap h-60">
+                                    {Object.entries(data).map(
+                                        ([colorName, value]) => {
+                                            const bgColor = value[colorCode];
+
+                                            return (
+                                                <div
+                                                    className="cursor-pointer w-1/3 sm:w-1/6 h-30 sm:h-full relative"
+                                                    key={colorName}
+                                                >
+                                                    <div
+                                                        className="w-full h-full"
+                                                        style={{
+                                                            backgroundColor: `${bgColor}`,
+                                                        }}
+                                                    ></div>
+                                                    <div className="w-full h-max absolute top-12">
+                                                        <p
+                                                            className="text-sm text-center"
+                                                            style={{
+                                                                color: value.bodyTextColor,
+                                                            }}
+                                                        >
+                                                            {bgColor}
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            );
+                                        }
+                                    )}
+                                </div>
+                            </div>
+                            <div
+                                className="border px-4 py-1 mt-2 rounded-lg cursor-pointer w-max hover:bg-black hover:text-white"
+                                onClick={handleDownload}
+                            >
+                                <p>Download</p>
+                            </div>
+                        </div>
+                    )}
+                </>
             )}
         </div>
     );
