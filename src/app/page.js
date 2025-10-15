@@ -301,7 +301,7 @@ export default function Home() {
                     </div>
                 </div>
                 <div
-                    className="h-70 sm:w-[50%] w-[100%] border-2 p-2 rounded-md"
+                    className="h-[50vh] sm:w-[50%] w-[100%] border-2 p-2 rounded-md"
                     style={{ borderColor: colorData.primary }}
                 >
                     {preview ? (
