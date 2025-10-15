@@ -345,11 +345,11 @@ export default function Home() {
                     {active === "css" && (
                         <div className="rounded-md bg-white shadow-lg p-4 flex flex-col gap-2 absolute -translate-x-1/2 -translate-y-1/2 left-1/2 top-[50%] w-[90%]">
                             <div className="flex items-center justify-between">
-                                <div className="flex items-center gap-4 text-lg font-semibold">
+                                <div className="flex items-center gap-4 sm:text-lg text-base font-semibold">
                                     <p
-                                        className={`cursor-pointer border p-1 px-3 rounded-md ${
+                                        className={`cursor-pointer ${
                                             active === "css"
-                                                ? "bg-blue-500 text-white shadow-md scale-105"
+                                                ? "border-b-2 border-blue-500"
                                                 : ""
                                         }`}
                                         onClick={() => setActive("css")}
@@ -357,9 +357,9 @@ export default function Home() {
                                         CSS
                                     </p>
                                     <p
-                                        className={`cursor-pointer border p-1 px-3 rounded-md ${
+                                        className={`cursor-pointer ${
                                             active === "tailwind"
-                                                ? "bg-blue-500 text-white shadow-md scale-105"
+                                                ? "border-b-2 border-blue-500"
                                                 : ""
                                         }`}
                                         onClick={() => setActive("tailwind")}
@@ -367,9 +367,9 @@ export default function Home() {
                                         Tailwind CSS
                                     </p>
                                     <p
-                                        className={`cursor-pointer border p-1 px-3 rounded-md ${
+                                        className={`cursor-pointer ${
                                             active === "png"
-                                                ? "bg-blue-500 text-white"
+                                                ? "border-b-2 border-blue-500"
                                                 : ""
                                         }`}
                                         onClick={() => setActive("png")}
@@ -399,11 +399,11 @@ export default function Home() {
                                 </div>
                             </div>
                             <hr />
-                            <div className="flex items-center mt-2 gap-4">
+                            <div className="flex items-center mt-2 gap-4 text-sm">
                                 {hexShow ? (
                                     <p
                                         onClick={() => handleExportData("hex")}
-                                        className={` ${
+                                        className={`border px-4 py-1 rounded-lg cursor-pointer ${
                                             activeCode === "hex"
                                                 ? "bg-black text-white"
                                                 : ""
@@ -414,14 +414,14 @@ export default function Home() {
                                 ) : (
                                     <p
                                         onClick={() => handleExportData("hex")}
-                                        className={`border px-4 py-0.5 rounded-lg cursor-pointer bg-black text-white`}
+                                        className={`border px-4 py-1 rounded-lg cursor-pointer bg-black text-white`}
                                     >
                                         Hex
                                     </p>
                                 )}
                                 <p
                                     onClick={() => handleExportData("rgb")}
-                                    className={`border px-4 py-0.5 rounded-lg cursor-pointer ${
+                                    className={`border px-4 py-1 rounded-lg cursor-pointer ${
                                         activeCode === "rgb"
                                             ? "bg-black text-white"
                                             : ""
@@ -431,7 +431,7 @@ export default function Home() {
                                 </p>
                                 <p
                                     onClick={() => handleExportData("hsl")}
-                                    className={`border px-4 py-0.5 rounded-lg cursor-pointer ${
+                                    className={`border px-4 py-1 rounded-lg cursor-pointer ${
                                         activeCode === "hsl"
                                             ? "bg-black text-white"
                                             : ""
@@ -511,11 +511,11 @@ export default function Home() {
                     {active === "tailwind" && (
                         <div className="rounded-md bg-white shadow-lg p-4 flex flex-col gap-2 absolute -translate-x-1/2 -translate-y-1/2 left-1/2 top-[50%] w-[90%]">
                             <div className="flex items-center justify-between">
-                                <div className="flex items-center gap-4 text-lg font-semibold">
+                                <div className="flex items-center gap-4 sm:text-lg text-base font-semibold">
                                     <p
-                                        className={`cursor-pointer border p-1 px-3 rounded-md ${
+                                        className={`cursor-pointer ${
                                             active === "css"
-                                                ? "bg-blue-500 text-white"
+                                                ? "border-b-2 border-blue-500"
                                                 : ""
                                         }`}
                                         onClick={() => setActive("css")}
@@ -523,9 +523,9 @@ export default function Home() {
                                         CSS
                                     </p>
                                     <p
-                                        className={`cursor-pointer border p-1 px-3 rounded-md ${
+                                        className={`cursor-pointer ${
                                             active === "tailwind"
-                                                ? "bg-blue-500 text-white"
+                                                ? "border-b-2 border-blue-500"
                                                 : ""
                                         }`}
                                         onClick={() => setActive("tailwind")}
@@ -533,9 +533,9 @@ export default function Home() {
                                         Tailwind CSS
                                     </p>
                                     <p
-                                        className={`cursor-pointer border p-1 px-3 rounded-md ${
+                                        className={`cursor-pointer ${
                                             active === "png"
-                                                ? "bg-blue-500 text-white"
+                                                ? "border-b-2 border-blue-500"
                                                 : ""
                                         }`}
                                         onClick={() => setActive("png")}
@@ -565,11 +565,11 @@ export default function Home() {
                                 </div>
                             </div>
                             <hr />
-                            <div className="flex items-center mt-2 gap-4">
+                            <div className="flex items-center mt-2 gap-4 text-sm">
                                 {hexShow ? (
                                     <p
                                         onClick={() => handleExportData("hex")}
-                                        className={`border px-4 py-0.5 rounded-lg cursor-pointer ${
+                                        className={`border px-4 py-1 rounded-lg cursor-pointer ${
                                             activeCode === "hex"
                                                 ? "bg-black text-white"
                                                 : ""
@@ -580,14 +580,14 @@ export default function Home() {
                                 ) : (
                                     <p
                                         onClick={() => handleExportData("hex")}
-                                        className={`border px-4 py-0.5 rounded-lg cursor-pointer bg-black text-white`}
+                                        className={`border px-4 py-1 rounded-lg cursor-pointer bg-black text-white`}
                                     >
                                         Hex
                                     </p>
                                 )}
                                 <p
                                     onClick={() => handleExportData("rgb")}
-                                    className={`border px-4 py-0.5 rounded-lg cursor-pointer ${
+                                    className={`border px-4 py-1 rounded-lg cursor-pointer ${
                                         activeCode === "rgb"
                                             ? "bg-black text-white"
                                             : ""
@@ -597,7 +597,7 @@ export default function Home() {
                                 </p>
                                 <p
                                     onClick={() => handleExportData("hsl")}
-                                    className={`border px-4 py-0.5 rounded-lg cursor-pointer ${
+                                    className={`border px-4 py-1 rounded-lg cursor-pointer ${
                                         activeCode === "hsl"
                                             ? "bg-black text-white"
                                             : ""
@@ -681,11 +681,11 @@ export default function Home() {
                     {active === "png" && (
                         <div className="rounded-md bg-white shadow-lg p-4 flex flex-col gap-2 absolute -translate-x-1/2 -translate-y-1/2 left-1/2 top-[50%] w-[90%]">
                             <div className="flex items-center justify-between">
-                                <div className="flex items-center gap-4 text-lg font-semibold">
+                                <div className="flex items-center gap-4 sm:text-lg text-base font-semibold">
                                     <p
-                                        className={`cursor-pointer border p-1 px-3 rounded-md ${
+                                        className={`cursor-pointer ${
                                             active === "css"
-                                                ? "bg-blue-500 text-white shadow-md scale-105"
+                                                ? "border-b-2 border-blue-500"
                                                 : ""
                                         }`}
                                         onClick={() => setActive("css")}
@@ -693,9 +693,9 @@ export default function Home() {
                                         CSS
                                     </p>
                                     <p
-                                        className={`cursor-pointer border p-1 px-3 rounded-md ${
+                                        className={`cursor-pointer ${
                                             active === "tailwind"
-                                                ? "bg-blue-500 text-white shadow-md scale-105"
+                                                ? "border-b-2 border-blue-500"
                                                 : ""
                                         }`}
                                         onClick={() => setActive("tailwind")}
@@ -703,9 +703,9 @@ export default function Home() {
                                         Tailwind CSS
                                     </p>
                                     <p
-                                        className={`cursor-pointer border p-1 px-3 rounded-md ${
+                                        className={`cursor-pointer ${
                                             active === "png"
-                                                ? "bg-blue-500 text-white"
+                                                ? "border-b-2 border-blue-500"
                                                 : ""
                                         }`}
                                         onClick={() => setActive("png")}
