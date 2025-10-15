@@ -28,9 +28,7 @@ export default function Home() {
     });
     const [data, setData] = useState(null);
 
-    const [startingImage, setStartingImage] = useState(() =>
-        Math.floor(Math.random() * demoImage.length)
-    );
+    const [startingImage, setStartingImage] = useState(2);
     const [demoNum, setDemoNum] = useState(0);
     const [isColorCopy, setIsColorCopy] = useState(false);
     const [colorCode, setColorCode] = useState("hex");
@@ -41,16 +39,13 @@ export default function Home() {
     const [exportCopy, setExportCopy] = useState(false);
 
     useEffect(() => {
-        const randomNumber = Math.floor(Math.random() * demoImage.length);
-        const image = `/${demoImage[randomNumber]}.jpg`;
-
+        const image = `/${demoImage[startingImage]}.jpg`;
         Vibrant.from(image)
             .getPalette()
             .then((palette) => {
                 setData(palette);
             });
-        setStartingImage(randomNumber);
-    }, []);
+    }, [startingImage]);
 
     useEffect(() => {
         if (data) {
