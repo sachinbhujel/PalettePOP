@@ -38,8 +38,8 @@ export default function Home() {
     const [hexShow, setHexShow] = useState(false);
     const [exportCopy, setExportCopy] = useState(false);
 
-    if(typeof window != "undefined"){
-          document.addEventListener("selectstart", (e) => e.preventDefault());
+    if (typeof window != "undefined") {
+        document.addEventListener("selectstart", (e) => e.preventDefault());
     }
 
     useEffect(() => {
