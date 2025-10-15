@@ -747,7 +747,41 @@ export default function Home() {
                                                     <div
                                                         className="w-full h-full"
                                                         style={{
-                                                            backgroundColor: `${bgColor}`,
+                                                            backgroundColor:
+                                                                colorCode ===
+                                                                "rgb"
+                                                                    ? `rgb(${bgColor})`
+                                                                    : colorCode ===
+                                                                      "hsl"
+                                                                    ? `hsl(${
+                                                                          (
+                                                                              bgColor[0] *
+                                                                              360
+                                                                          )
+                                                                              .toString()
+                                                                              .split(
+                                                                                  "."
+                                                                              )[0]
+                                                                      }, ${
+                                                                          (
+                                                                              bgColor[1] *
+                                                                              100
+                                                                          )
+                                                                              .toString()
+                                                                              .split(
+                                                                                  "."
+                                                                              )[0]
+                                                                      }%, ${
+                                                                          (
+                                                                              bgColor[2] *
+                                                                              100
+                                                                          )
+                                                                              .toString()
+                                                                              .split(
+                                                                                  "."
+                                                                              )[0]
+                                                                      }%)`
+                                                                    : `${bgColor}`,
                                                         }}
                                                     ></div>
                                                     <div className="w-full h-max absolute top-12">
@@ -757,7 +791,39 @@ export default function Home() {
                                                                 color: value.bodyTextColor,
                                                             }}
                                                         >
-                                                            {bgColor}
+                                                            {colorCode === "rgb"
+                                                                ? `rgb(${bgColor})`
+                                                                : colorCode ===
+                                                                  "hsl"
+                                                                ? `hsl(${
+                                                                      (
+                                                                          bgColor[0] *
+                                                                          360
+                                                                      )
+                                                                          .toString()
+                                                                          .split(
+                                                                              "."
+                                                                          )[0]
+                                                                  }, ${
+                                                                      (
+                                                                          bgColor[1] *
+                                                                          100
+                                                                      )
+                                                                          .toString()
+                                                                          .split(
+                                                                              "."
+                                                                          )[0]
+                                                                  }%, ${
+                                                                      (
+                                                                          bgColor[2] *
+                                                                          100
+                                                                      )
+                                                                          .toString()
+                                                                          .split(
+                                                                              "."
+                                                                          )[0]
+                                                                  }%)`
+                                                                : `${bgColor}`}
                                                         </p>
                                                     </div>
                                                 </div>
