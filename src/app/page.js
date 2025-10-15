@@ -38,6 +38,8 @@ export default function Home() {
     const [hexShow, setHexShow] = useState(false);
     const [exportCopy, setExportCopy] = useState(false);
 
+    document.addEventListener("selectstart", (e) => e.preventDefault());
+
     useEffect(() => {
         const image = `/${demoImage[startingImage]}.jpg`;
         Vibrant.from(image)
