@@ -19,7 +19,7 @@ body::-webkit-scrollbar-thumb {
 
 .loader div {
     position: absolute;
-    top: 22px;
+    top: 33px;
     width: 11px;
     height: 11px;
     border-radius: 50%;

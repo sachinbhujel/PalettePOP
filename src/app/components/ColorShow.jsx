@@ -209,7 +209,7 @@ function ColorShow({
                             }}
                         ></div>
                         <div className="w-full flex flex-col items-center gap-2 absolute h-full pt-3">
-                            <div class="loader">
+                            <div className="loader">
                                 <div></div>
                                 <div></div>
                                 <div></div>
@@ -228,7 +228,7 @@ function ColorShow({
                             }}
                         ></div>
                         <div className="w-full flex flex-col items-center gap-2 absolute h-full pt-3">
-                            <div class="loader">
+                            <div className="loader">
                                 <div></div>
                                 <div></div>
                                 <div></div>
@@ -247,7 +247,7 @@ function ColorShow({
                             }}
                         ></div>
                         <div className="w-full flex flex-col items-center gap-2 absolute h-full pt-3">
-                            <div class="loader">
+                            <div className="loader">
                                 <div></div>
                                 <div></div>
                                 <div></div>
@@ -266,7 +266,7 @@ function ColorShow({
                             }}
                         ></div>
                         <div className="w-full flex flex-col items-center gap-2 absolute h-full pt-3">
-                            <div class="loader">
+                            <div className="loader">
                                 <div></div>
                                 <div></div>
                                 <div></div>
@@ -285,7 +285,7 @@ function ColorShow({
                             }}
                         ></div>
                         <div className="w-full flex flex-col items-center gap-2 absolute h-full pt-3">
-                            <div class="loader">
+                            <div className="loader">
                                 <div></div>
                                 <div></div>
                                 <div></div>
@@ -304,7 +304,7 @@ function ColorShow({
                             }}
                         ></div>
                         <div className="w-full flex flex-col items-center gap-2 absolute h-full pt-3">
-                            <div class="loader">
+                            <div className="loader">
                                 <div></div>
                                 <div></div>
                                 <div></div>
