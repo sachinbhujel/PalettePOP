@@ -796,7 +796,25 @@ export default function Home() {
                                                             }}
                                                         >
                                                             {colorCode === "rgb"
-                                                                ? `rgb(${bgColor})`
+                                                                ? `rgb(${
+                                                                      bgColor[0]
+                                                                          .toString()
+                                                                          .split(
+                                                                              "."
+                                                                          )[0]
+                                                                  }, ${
+                                                                      bgColor[1]
+                                                                          .toString()
+                                                                          .split(
+                                                                              "."
+                                                                          )[0]
+                                                                  }, ${
+                                                                      bgColor[2]
+                                                                          .toString()
+                                                                          .split(
+                                                                              "."
+                                                                          )[0]
+                                                                  })`
                                                                 : colorCode ===
                                                                   "hsl"
                                                                 ? `hsl(${
