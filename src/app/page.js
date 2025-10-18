@@ -37,6 +37,7 @@ export default function Home() {
     const [activeCode, setActiveCode] = useState("");
     const [hexShow, setHexShow] = useState(false);
     const [exportCopy, setExportCopy] = useState(false);
+    const [hideImageColorCode, setHideImageColorCode] = useState(true);
 
     if (typeof window != "undefined") {
         document.addEventListener("selectstart", (e) => e.preventDefault());
@@ -245,6 +246,10 @@ export default function Home() {
             link.href = dataUrl;
             link.click();
         });
+    };
+
+    const handleHideColor = () => {
+        setHideImageColorCode(!hideImageColorCode);
     };
 
     return (
@@ -734,124 +739,138 @@ export default function Home() {
                                 </div>
                             </div>
                             <hr />
-                            <div
-                                className="flex flex-col mt-4 gap-1"
-                                id="export-color-data"
-                            >
-                                <div className="flex flex-wrap h-60">
-                                    {Object.entries(data).map(
-                                        ([colorName, value]) => {
-                                            const bgColor = value[colorCode];
+                            <div className="flex flex-col">
+                                <div className="flex justify-end">
+                                    <div
+                                        className="border flex bg-black text-white px-5 py-1 mt-4 text-sm rounded-sm cursor-pointer w-max hover:bg-white hover:text-black"
+                                        onClick={handleHideColor}
+                                    >
+                                        <p>Hide Color</p>
+                                    </div>
+                                </div>
+                                <div
+                                    className="flex flex-col gap-1"
+                                    id="export-color-data"
+                                >
+                                    <div className="flex flex-wrap h-60">
+                                        {Object.entries(data).map(
+                                            ([colorName, value]) => {
+                                                const bgColor =
+                                                    value[colorCode];
 
-                                            return (
-                                                <div
-                                                    className="cursor-pointer w-1/3 sm:w-1/6 h-30 sm:h-full relative"
-                                                    key={colorName}
-                                                >
+                                                return (
                                                     <div
-                                                        className="w-full h-full"
-                                                        style={{
-                                                            backgroundColor:
-                                                                colorCode ===
-                                                                "rgb"
-                                                                    ? `rgb(${bgColor})`
-                                                                    : colorCode ===
-                                                                      "hsl"
-                                                                    ? `hsl(${
-                                                                          (
-                                                                              bgColor[0] *
-                                                                              360
-                                                                          )
-                                                                              .toString()
-                                                                              .split(
-                                                                                  "."
-                                                                              )[0]
-                                                                      }, ${
-                                                                          (
-                                                                              bgColor[1] *
-                                                                              100
-                                                                          )
-                                                                              .toString()
-                                                                              .split(
-                                                                                  "."
-                                                                              )[0]
-                                                                      }%, ${
-                                                                          (
-                                                                              bgColor[2] *
-                                                                              100
-                                                                          )
-                                                                              .toString()
-                                                                              .split(
-                                                                                  "."
-                                                                              )[0]
-                                                                      }%)`
-                                                                    : `${bgColor}`,
-                                                        }}
-                                                    ></div>
-                                                    <div className="w-full h-max absolute top-12">
-                                                        <p
-                                                            className="text-sm text-center"
+                                                        className="cursor-pointer w-1/3 sm:w-1/6 h-30 sm:h-full relative"
+                                                        key={colorName}
+                                                    >
+                                                        <div
+                                                            className="w-full h-full"
                                                             style={{
-                                                                color: value.bodyTextColor,
+                                                                backgroundColor:
+                                                                    colorCode ===
+                                                                    "rgb"
+                                                                        ? `rgb(${bgColor})`
+                                                                        : colorCode ===
+                                                                          "hsl"
+                                                                        ? `hsl(${
+                                                                              (
+                                                                                  bgColor[0] *
+                                                                                  360
+                                                                              )
+                                                                                  .toString()
+                                                                                  .split(
+                                                                                      "."
+                                                                                  )[0]
+                                                                          }, ${
+                                                                              (
+                                                                                  bgColor[1] *
+                                                                                  100
+                                                                              )
+                                                                                  .toString()
+                                                                                  .split(
+                                                                                      "."
+                                                                                  )[0]
+                                                                          }%, ${
+                                                                              (
+                                                                                  bgColor[2] *
+                                                                                  100
+                                                                              )
+                                                                                  .toString()
+                                                                                  .split(
+                                                                                      "."
+                                                                                  )[0]
+                                                                          }%)`
+                                                                        : `${bgColor}`,
                                                             }}
-                                                        >
-                                                            {colorCode === "rgb"
-                                                                ? `rgb(${
-                                                                      bgColor[0]
-                                                                          .toString()
-                                                                          .split(
-                                                                              "."
-                                                                          )[0]
-                                                                  }, ${
-                                                                      bgColor[1]
-                                                                          .toString()
-                                                                          .split(
-                                                                              "."
-                                                                          )[0]
-                                                                  }, ${
-                                                                      bgColor[2]
-                                                                          .toString()
-                                                                          .split(
-                                                                              "."
-                                                                          )[0]
-                                                                  })`
-                                                                : colorCode ===
-                                                                  "hsl"
-                                                                ? `hsl(${
-                                                                      (
-                                                                          bgColor[0] *
-                                                                          360
-                                                                      )
-                                                                          .toString()
-                                                                          .split(
-                                                                              "."
-                                                                          )[0]
-                                                                  }, ${
-                                                                      (
-                                                                          bgColor[1] *
-                                                                          100
-                                                                      )
-                                                                          .toString()
-                                                                          .split(
-                                                                              "."
-                                                                          )[0]
-                                                                  }%, ${
-                                                                      (
-                                                                          bgColor[2] *
-                                                                          100
-                                                                      )
-                                                                          .toString()
-                                                                          .split(
-                                                                              "."
-                                                                          )[0]
-                                                                  }%)`
-                                                                : `${bgColor}`}
-                                                        </p>
+                                                        ></div>
+                                                        <div className="w-full h-max absolute top-12">
+                                                            {hideImageColorCode && (
+                                                                <p
+                                                                    className="text-sm text-center"
+                                                                    style={{
+                                                                        color: value.bodyTextColor,
+                                                                    }}
+                                                                >
+                                                                    {colorCode ===
+                                                                    "rgb"
+                                                                        ? `rgb(${
+                                                                              bgColor[0]
+                                                                                  .toString()
+                                                                                  .split(
+                                                                                      "."
+                                                                                  )[0]
+                                                                          }, ${
+                                                                              bgColor[1]
+                                                                                  .toString()
+                                                                                  .split(
+                                                                                      "."
+                                                                                  )[0]
+                                                                          }, ${
+                                                                              bgColor[2]
+                                                                                  .toString()
+                                                                                  .split(
+                                                                                      "."
+                                                                                  )[0]
+                                                                          })`
+                                                                        : colorCode ===
+                                                                          "hsl"
+                                                                        ? `hsl(${
+                                                                              (
+                                                                                  bgColor[0] *
+                                                                                  360
+                                                                              )
+                                                                                  .toString()
+                                                                                  .split(
+                                                                                      "."
+                                                                                  )[0]
+                                                                          }, ${
+                                                                              (
+                                                                                  bgColor[1] *
+                                                                                  100
+                                                                              )
+                                                                                  .toString()
+                                                                                  .split(
+                                                                                      "."
+                                                                                  )[0]
+                                                                          }%, ${
+                                                                              (
+                                                                                  bgColor[2] *
+                                                                                  100
+                                                                              )
+                                                                                  .toString()
+                                                                                  .split(
+                                                                                      "."
+                                                                                  )[0]
+                                                                          }%)`
+                                                                        : `${bgColor}`}
+                                                                </p>
+                                                            )}
+                                                        </div>
                                                     </div>
-                                                </div>
-                                            );
-                                        }
-                                    )}
+                                                );
+                                            }
+                                        )}
+                                    </div>
                                 </div>
                             </div>
                             <div
